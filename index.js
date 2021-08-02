@@ -1,12 +1,11 @@
 let filename = "plotter.stl";
 
-function download()
-{	
+function download() {
 	const colors = {
-		red : 'ff0000',
-		blue : '0000ff',
-		black : '000000',
-		white : 'ffffff'
+		red: 'ff0000',
+		blue: '0000ff',
+		black: '000000',
+		white: 'ffffff'
 	};
 	let colorName = redblue_mode ? 'red' : dark_mode ? 'white' : 'black';
 	let color = colors[colorName];
@@ -21,8 +20,7 @@ function download()
 	svg += `' style='stroke:#${color};stroke-width:1;fill:none'/>\n`;
 	svg += "</g>\n";
 
-	if (redblue_mode)
-	{
+	if (redblue_mode) {
 		colorName = 'blue';
 		color = colors[colorName];
 		svg += `<g inkscape:label="${colorName}" inkscape:groupmode="layer" id="2${colorName}">\n`;
@@ -49,14 +47,15 @@ function download()
 	document.body.removeChild(element);
 }
 
-function fileOnchange (evt) {
+function fileOnchange(evt) {
 	const reader = new FileReader();
 	console.log("upload changed", evt);
 	reader.onloadend = (evt) => {
 		console.log(evt.target);
 		const content = evt.target.result;
-		if (!content)
+		if (!content) {
 			return;
+		}
 
 		//console.log("content:", raw);
 		stl = new STL(content);
@@ -73,12 +72,12 @@ function fileOnchange (evt) {
 	reader.readAsArrayBuffer(file);
 };
 
-function fileOnclick () {
+function fileOnclick() {
 	const element = document.getElementById('fileUpload');
 	element.click();
 }
 
 (function () {
 	document.forms['uploadForm'].elements['fileUpload'].onchange = fileOnchange;
-	document.getElementById('loadFileXml').addEventListener('click', fileOnclick, false); 
+	document.getElementById('loadFileXml').addEventListener('click', fileOnclick, false);
 })();
